@@ -8,7 +8,6 @@ import com.mongodb.client.model.Updates;
 import org.bson.Document;
 
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.eq;
 
 public class MongoDBSingleton {
     static MongoDBSingleton instance;
