@@ -13,6 +13,9 @@ public class Account {
         this.hashedPassword = LoginUtility.hashPassword(password);
     }
 
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
     public boolean setPassword(String password) {
         this.hashedPassword = LoginUtility.hashPassword(password);
         return true;
