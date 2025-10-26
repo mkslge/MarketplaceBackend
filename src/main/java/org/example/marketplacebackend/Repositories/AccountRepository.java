@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends MongoRepository<Account, String> {
-    // Optional: add custom query methods here
-    // Example:
+    boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
+
+    
     Account findByEmail(String email);
 }
