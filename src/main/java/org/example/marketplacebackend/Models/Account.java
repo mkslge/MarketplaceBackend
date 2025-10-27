@@ -18,11 +18,13 @@ public class Account {
     private String username;
 
     @Getter
+    @Setter
     private String hashedPassword;
 
     @Getter
     @Setter
-    private String sessionID;
+    private SessionID sessionID;
+
 
     public Account() {
 
@@ -31,28 +33,32 @@ public class Account {
     public Account(String email, String username, String password) {
         this.email = email;
         this.username = username;
-        this.hashedPassword = LoginUtility.hashPassword(password);
-        this.sessionID = "";
+        this.hashedPassword = LoginUtility.hash(password);
+        this.sessionID = new SessionID();
     }
 
     public Account(String email, String username, String password, String sessionID) {
         this.email = email;
         this.username = username;
-        this.hashedPassword = LoginUtility.hashPassword(password);
-        this.sessionID = sessionID;
+        this.hashedPassword = LoginUtility.hash(password);
+        this.sessionID = new SessionID(sessionID);
     }
 
     public boolean setPassword(String password) {
-        this.hashedPassword = LoginUtility.hashPassword(password);
+        this.hashedPassword = LoginUtility.hash(password);
         return true;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
-    }
+
 
     public boolean passwordCorrect(String hashedPassword) {
         return this.hashedPassword.equals(hashedPassword);
+    }
+
+    public void setHashedSessionID(String hashedSessionID) {
+        this.sessionID = new SessionID();
+        this.sessionID.setHashedSessionID(hashedSessionID);
+        this.sessionID.updateExpiryDate();
     }
 
 
