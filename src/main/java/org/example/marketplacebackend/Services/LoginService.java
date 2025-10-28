@@ -21,8 +21,6 @@ public class LoginService {
 
 
 
-
-
     public void setSessionID(Account account) {
         String hashedSessionID;
         do {

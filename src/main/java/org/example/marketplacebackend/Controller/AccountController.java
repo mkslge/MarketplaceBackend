@@ -1,7 +1,10 @@
 package org.example.marketplacebackend.Controller;
 
 import org.example.marketplacebackend.Models.Account;
+import org.example.marketplacebackend.Models.SessionID;
 import org.example.marketplacebackend.Repositories.AccountRepository;
+import org.example.marketplacebackend.Services.LoginService;
+import org.example.marketplacebackend.Services.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +22,34 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @PostMapping("/register")
+    @Autowired
+    private SignupService signupService;
+
+    @Autowired
+    private LoginService loginService;
+
+    @PostMapping("/signup")
     public ResponseEntity<Account> registerAccount(@RequestBody Account account) {
-        // Check if an account with the same email already exists
-        if (accountRepository.findByEmail(account.getEmail()) != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // 409 Conflict
-        }
-
-        // Save the new account
-        Account savedAccount = accountRepository.save(account);
-
-        // Return 201 Created with the saved account
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedAccount);
+        return signupService.createAccount(account) ?
+                ResponseEntity.status(HttpStatus.CREATED).body(account) :
+                ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
+
+    @PostMapping("/login/unsaved")
+    public ResponseEntity<Account> loginUncached(@RequestBody Account account) {
+        return null;
+    }
+
+    @PostMapping("/login/saved")
+    public ResponseEntity<Account> loginUncached(@RequestBody SessionID sessionID) {
+        return null;
+    }
+
+
+
+
+
+
 
     
 }
